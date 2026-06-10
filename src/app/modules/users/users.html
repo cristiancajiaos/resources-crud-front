@@ -1,1 +1,65 @@
-<p>users works!</p>
+<section class="users">
+  <form>
+    <div class="row">
+      <div class="col-12 col-lg-6">
+        <div class="form-group mb-3">
+          <label>Name</label>
+          <input class="form-control"/>
+        </div>
+      </div>
+      <div class="col-12 col-lg-6">
+        <div class="form-group mb-3">
+          <label>Username</label>
+          <input class="form-control"/>
+        </div>
+      </div>
+      <div class="col-12 col-lg-6">
+        <div class="form-group mb-3">
+          <label>Email</label>
+          <input class="form-control"/>
+        </div>
+      </div>
+      <div class="col-12">
+        <button type="button" class="btn btn-danger mr-3">
+          <fa-icon [icon]="cancelDeleteIcon"></fa-icon> Cancelar
+        </button>
+        <button type="submit" class="btn btn-success">
+          <fa-icon [icon]="saveIcon"></fa-icon> Save user 
+        </button>
+      </div>
+    </div>
+  </form>
+
+  <hr/>
+
+  <div class="table-responsive">
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Username</th>
+          <th>Email</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Name</td>
+          <td>Username</td>
+          <td>Email</td>
+          <td>
+            <div class="btn-group">
+              <button class="btn btn-primary">
+                <fa-icon [icon]="editIcon"></fa-icon>
+              </button>
+              <button class="btn btn-danger">
+                <fa-icon [icon]="cancelDeleteIcon"></fa-icon>
+              </button>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
