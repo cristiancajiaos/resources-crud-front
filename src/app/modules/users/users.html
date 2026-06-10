@@ -50,10 +50,10 @@
         </div>
       </div>
       <div class="col-12">
-        <button type="button" class="btn btn-danger mr-3">
+        <button type="button" class="btn btn-danger me-2">
           <fa-icon [icon]="cancelDeleteIcon"></fa-icon> Cancelar
         </button>
-        <button type="submit" class="btn btn-success">
+        <button type="submit" class="btn btn-success" [disabled]="userForm.invalid">
           <fa-icon [icon]="saveIcon"></fa-icon> Save user 
         </button>
       </div>

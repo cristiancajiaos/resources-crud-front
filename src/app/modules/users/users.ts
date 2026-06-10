@@ -13,6 +13,8 @@ export class Users implements OnInit {
 
   private fb = inject(FormBuilder);
 
+  private currentUserId: number;
+
   public userForm: FormGroup = new FormGroup({});
 
   public userName: FormControl = new FormControl('', [Validators.required]);
