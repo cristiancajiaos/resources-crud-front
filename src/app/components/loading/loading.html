@@ -1,5 +1,7 @@
-<section class="loading">
-  <span class="loading-icon">
-    <fa-icon [icon]="spinnerIcon" animation="spin"></fa-icon>
-  </span>
-</section>
+@if (loading$ | async) {
+  <section class="loading">
+    <span class="loading-icon">
+      <fa-icon [icon]="spinnerIcon" animation="spin"></fa-icon>
+    </span>
+  </section>
+}

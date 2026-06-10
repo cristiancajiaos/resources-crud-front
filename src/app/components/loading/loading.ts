@@ -1,14 +1,20 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { faSpinner, IconDefinition } from '@fortawesome/free-solid-svg-icons';
+import { LoadingService } from '../../services/loading-service';
+import { AsyncPipe } from '@angular/common';
 
 @Component({
   selector: 'app-loading',
-  imports: [FontAwesomeModule],
+  imports: [FontAwesomeModule, AsyncPipe],
   templateUrl: './loading.html',
   styleUrl: './loading.scss',
 })
 export class Loading {
+
+  private loadingService = inject(LoadingService);
+
+  public loading$ = this.loadingService.isLoading$;
 
   public spinnerIcon: IconDefinition = faSpinner;
 }
