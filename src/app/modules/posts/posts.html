@@ -1,6 +1,6 @@
 <section class="posts">
   <section class="post-form">
-    <form [formGroup]="postForm">
+    <form [formGroup]="postForm" (ngSubmit)="saveOrEditPost()">
       <div class="row">
         <div class="col-12 mb-3">
           <div class="form-group">
@@ -25,7 +25,7 @@
             <fa-icon [icon]="cancelDeleteIcon"></fa-icon>
             Cancel
           </button>
-          <button class="btn btn-success" [disabled]="postForm.invalid">
+          <button class="btn btn-success" type="submit" [disabled]="postForm.invalid">
             @if (currentId) {
               <fa-icon [icon]="editIcon"></fa-icon>
               Edit post
@@ -56,7 +56,7 @@
             <td>{{post.title}}</td>
             <td>{{post.body}}</td>
             <td>
-              <button class="btn btn-outline-primary me-2">
+              <button class="btn btn-outline-primary me-2" (click)="editPost(post)">
                 <fa-icon [icon]="editIcon"></fa-icon>
               </button>
               <button class="btn btn-outline-danger me-2">

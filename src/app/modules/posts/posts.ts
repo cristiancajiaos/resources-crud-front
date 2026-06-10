@@ -20,7 +20,7 @@ export class Posts implements OnInit, OnDestroy {
   private fb = inject(FormBuilder);
   private toastr = inject(ToastrService);
 
-  public currentId: number | null = null;
+  public currentId: number;
 
   public postForm: FormGroup = new FormGroup({});
 
@@ -30,6 +30,7 @@ export class Posts implements OnInit, OnDestroy {
   public editIcon: IconDefinition = faPencil;
   public saveIcon: IconDefinition = faFloppyDisk;
 
+  private saveOrEditPostSubscription: Subscription = new Subscription(); 
   private getPostsSubscription: Subscription = new Subscription();
 
   ngOnInit(): void {
@@ -56,11 +57,47 @@ export class Posts implements OnInit, OnDestroy {
     this.postForm.controls['id'].setValue('');
     this.postForm.controls['title'].setValue('');
     this.postForm.controls['body'].setValue('');
+    this.currentId = null;
+  }
+
+  public saveOrEditPost() {
+    let post: Post = {
+      title: this.postForm.controls['title'].value,
+      body: this.postForm.controls['body'].value
+    };
+
+    if (this.currentId) {
+      post.id = this.currentId; 
+    }
+
+    this.saveOrEditPostSubscription = this.postService.saveOrEditPost(post).subscribe({
+      next: (post) => {
+        this.toastr.success("Post saved successfully");
+        this.getAllPosts();
+      },
+      error: (error) => {
+        this.toastr.error(`Error trying to save post: ${error}`);
+      },
+      complete: () => {}
+    });
+  }
+
+  public editPost(post: Post) {
+    this.currentId = post.id;
+    this.postForm.controls['title'].setValue(post.title);
+    this.postForm.controls['body'].setValue(post.body);
+  }
+
+  public deletePost() {
+
   }
 
   ngOnDestroy(): void {
     if (this.getPostsSubscription) {
       this.getPostsSubscription.unsubscribe();
+    }
+    if (this.saveOrEditPostSubscription) {
+      this.saveOrEditPostSubscription.unsubscribe();
     }
   }
 }

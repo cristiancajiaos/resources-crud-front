@@ -13,4 +13,8 @@ export class PostService {
   public getPosts(): Observable<Post[]> {
     return this.http.get<Post[]>(`/post`); 
   }
+
+  public saveOrEditPost(post: Post): Observable<Post> {
+    return this.http.post<Post>('/post', post);
+  }
 }
