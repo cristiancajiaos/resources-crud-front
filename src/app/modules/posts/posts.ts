@@ -3,7 +3,7 @@ import { IconDefinition } from './../../../../node_modules/@fortawesome/fontawes
 import { Component, inject, OnInit } from '@angular/core';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { FormsModule, ReactiveFormsModule, FormGroup, FormBuilder, FormControl, Validators} from '@angular/forms';
-import { JsonPipe } from '@angular/common';
+
 @Component({
   selector: 'app-posts',
   imports: [FontAwesomeModule, FormsModule, ReactiveFormsModule],
