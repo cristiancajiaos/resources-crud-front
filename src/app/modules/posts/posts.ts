@@ -6,7 +6,7 @@ import { FormsModule, ReactiveFormsModule, FormGroup, FormBuilder, FormControl, 
 import { JsonPipe } from '@angular/common';
 @Component({
   selector: 'app-posts',
-  imports: [FontAwesomeModule, FormsModule, ReactiveFormsModule, JsonPipe],
+  imports: [FontAwesomeModule, FormsModule, ReactiveFormsModule],
   templateUrl: './posts.html',
   styleUrl: './posts.scss',
 })
