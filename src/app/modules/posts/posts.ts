@@ -72,8 +72,13 @@ export class Posts implements OnInit, OnDestroy {
 
     this.saveOrEditPostSubscription = this.postService.saveOrEditPost(post).subscribe({
       next: (post) => {
-        this.toastr.success("Post saved successfully");
+        if (this.currentId) {
+          this.toastr.success("Post edited successfully");
+        } else {
+          this.toastr.success("Post saved successfully");
+        }
         this.getAllPosts();
+        this.cancelForm();
       },
       error: (error) => {
         this.toastr.error(`Error trying to save post: ${error}`);
