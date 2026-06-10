@@ -5,5 +5,5 @@ export const baseUrlInterceptor: HttpInterceptorFn = (req, next) => {
   const newReq = req.clone({
     url: `${environment.baseUrl}${req.url}`
   })
-  return next(req);
+  return next(newReq);
 };

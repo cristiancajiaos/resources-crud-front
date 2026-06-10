@@ -51,9 +51,10 @@
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <td>Here goes the title</td>
-            <td>Here goes the body</td>
+          @for (post of posts; track post.id) {
+            <tr>
+            <td>{{post.title}}</td>
+            <td>{{post.body}}</td>
             <td>
               <button class="btn btn-outline-primary me-2">
                 <fa-icon [icon]="editIcon"></fa-icon>
@@ -63,6 +64,8 @@
               </button>
             </td>
           </tr>
+          }
+          
         </tbody>
       </table>
     </div>

@@ -11,6 +11,6 @@ export class PostService {
   private http = inject(HttpClient);
 
   public getPosts(): Observable<Post[]> {
-    return this.http.get<Post[]>(`/posts`); 
+    return this.http.get<Post[]>(`/post`); 
   }
 }
