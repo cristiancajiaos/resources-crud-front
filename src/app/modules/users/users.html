@@ -1,22 +1,52 @@
 <section class="users">
-  <form>
+  <form [formGroup]="userForm">
     <div class="row">
       <div class="col-12 col-lg-6">
         <div class="form-group mb-3">
-          <label>Name</label>
-          <input class="form-control"/>
+          <label for="userName">Name</label>
+          <input class="form-control" id="userName" name="userName" formControlName="name"/>
+          @if (userName.touched && userName.invalid) {
+            @if (userName.errors['required']) {
+              <div class="text-danger">
+                This field is required
+              </div>
+              <br/>
+            }
+          }
         </div>
       </div>
       <div class="col-12 col-lg-6">
         <div class="form-group mb-3">
-          <label>Username</label>
-          <input class="form-control"/>
+          <label for="userUsername">Username</label>
+          <input class="form-control" id="userUsername" name="userUsername" formControlName="username"/>
+          @if (userUsername.touched && userUsername.invalid) {
+            @if (userUsername.errors['required']) {
+              <div class="text-danger">
+                This field is required
+              </div>
+              <br/>
+            }
+          }
         </div>
       </div>
       <div class="col-12 col-lg-6">
         <div class="form-group mb-3">
-          <label>Email</label>
-          <input class="form-control"/>
+          <label for="userEmail">Email</label>
+          <input class="form-control" id="userEmail" name="userEmail" formControlName="email"/>
+          @if (userEmail.touched && userEmail.invalid) {
+            @if (userEmail.errors['required']) {
+              <div class="text-danger">
+                This field is required
+              </div>
+              <br/>
+            }
+            @if (userEmail.errors['email']) {
+              <div class="text-danger">
+                Email field value is invalid
+              </div>
+              <br/>
+            }
+          }
         </div>
       </div>
       <div class="col-12">
