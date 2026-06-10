@@ -17,4 +17,8 @@ export class UserService {
   public saveOrEditUser(user: User): Observable<User> {
     return this.http.post<User>(`/user`, user);
   }
+
+  public deleteUser(id: number): Observable<Object> {
+    return this.http.delete(`/user/${id}`); 
+  }
 }

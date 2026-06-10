@@ -33,8 +33,10 @@ export class Users implements OnInit, OnDestroy {
   public saveIcon: IconDefinition = faFloppyDisk;
   public editIcon: IconDefinition = faEdit;
 
-  public saveOrEditUserSubscription: Subscription = new Subscription();
-  public getUsersSubscription: Subscription = new Subscription();
+  private saveOrEditUserSubscription: Subscription = new Subscription();
+  private getUsersSubscription: Subscription = new Subscription();
+  private deleteUserSubscription: Subscription = new Subscription();
+  
 
   ngOnInit(): void {
     this.userForm = this.fb.group({
@@ -99,8 +101,17 @@ export class Users implements OnInit, OnDestroy {
     this.userForm.controls['email'].setValue(user.email);
   }
 
-  public deleteUser(): void {
-
+  public deleteUser(id: number): void {
+    this.deleteUserSubscription = this.userService.deleteUser(id).subscribe({
+      next: () => {
+        this.toastr.success('User deleted successfully');
+        this.getAllUsers();
+      },
+      error: (error) => {
+        this.toastr.error(`Error trying to save user ${error}`);
+      },
+      complete: () => {}
+    }); 
   }
 
 
@@ -110,6 +121,9 @@ export class Users implements OnInit, OnDestroy {
     }
     if (this.saveOrEditUserSubscription) {
       this.saveOrEditUserSubscription.unsubscribe();
+    }
+    if (this.deleteUserSubscription) {
+      this.deleteUserSubscription.unsubscribe();
     }
   }
 }
