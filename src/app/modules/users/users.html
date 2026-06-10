@@ -54,7 +54,11 @@
           <fa-icon [icon]="cancelDeleteIcon"></fa-icon> Cancelar
         </button>
         <button type="submit" class="btn btn-success" [disabled]="userForm.invalid">
-          <fa-icon [icon]="saveIcon"></fa-icon> Save user 
+          @if (currentUserId) {
+            <fa-icon [icon]="editIcon"></fa-icon> Edit user 
+          } @else {
+            <fa-icon [icon]="saveIcon"></fa-icon> Save user 
+          }
         </button>
       </div>
     </div>
@@ -89,7 +93,7 @@
               </div>
             </td>
           </tr>
-        }
+        } 
       </tbody>
     </table>
   </div>

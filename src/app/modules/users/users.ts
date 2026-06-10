@@ -19,7 +19,7 @@ export class Users implements OnInit, OnDestroy {
   private fb = inject(FormBuilder);
   private toastr = inject(ToastrService);
 
-  private currentUserId: number;
+  public currentUserId: number;
 
   public users: User[] = []; 
 
