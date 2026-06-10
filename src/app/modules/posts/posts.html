@@ -1,1 +1,70 @@
-<p>posts works!</p>
+<section class="posts">
+  <section class="post-form">
+    <form [formGroup]="postForm">
+      <div class="row">
+        <div class="col-12 mb-3">
+          <div class="form-group">
+            <label for="postTitle">Post Title:</label>
+            <input class="form-control" 
+              id="postTitle" 
+              name="postTitle" 
+              formControlName="title"/>
+          </div>
+        </div>
+        <div class="col-12 mb-3">
+          <div class="from-group">
+            <label for="postBody">Post Body:</label>
+            <textarea id="postBody" 
+              name="postBody" 
+              class="form-control" 
+              formControlName="body"></textarea>
+          </div>
+        </div>
+        <div class="col-12">
+          <button class="btn btn-danger me-2" (click)="cancelForm()">
+            <fa-icon [icon]="cancelDeleteIcon"></fa-icon>
+            Cancel
+          </button>
+          <button class="btn btn-success" [disabled]="postForm.invalid">
+            @if (currentId) {
+              <fa-icon [icon]="editIcon"></fa-icon>
+              Edit post
+            } @else {
+              <fa-icon [icon]="saveIcon"></fa-icon>
+              Save post
+            }
+
+          </button>
+        </div>
+      </div>
+    </form>
+  </section>
+  <hr/>
+  <section class="posts-table">
+    <div class="table-responsive">
+      <table class="table">
+        <thead>
+          <tr>
+            <th>Title</th>
+            <th>Body</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Here goes the title</td>
+            <td>Here goes the body</td>
+            <td>
+              <button class="btn btn-outline-primary me-2">
+                <fa-icon [icon]="editIcon"></fa-icon>
+              </button>
+              <button class="btn btn-outline-danger me-2">
+                <fa-icon [icon]="cancelDeleteIcon"></fa-icon>
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+</section>
