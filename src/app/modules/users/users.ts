@@ -33,6 +33,7 @@ export class Users implements OnInit, OnDestroy {
   public saveIcon: IconDefinition = faFloppyDisk;
   public editIcon: IconDefinition = faEdit;
 
+  public saveOrEditUserSubscription: Subscription = new Subscription();
   public getUsersSubscription: Subscription = new Subscription();
 
   ngOnInit(): void {
@@ -44,25 +45,71 @@ export class Users implements OnInit, OnDestroy {
     this.getAllUsers();
   }
 
-  getAllUsers(): void {
+  private getAllUsers(): void {
     this.getUsersSubscription = this.userService.getUsers().subscribe({
       next: (users) => {
         this.users = users; 
       },
       error: (error) => {
-        this.toastr.error(`Error while ying to get users ${error}`);
+        this.toastr.error(`Error while trying to get users ${error}`);
 
       },
       complete: () => {
 
       }
     });
+  }
+
+  public saveOrEditUser(): void {
+    let user: User = {
+      name: this.userForm.controls['name'].value,
+      username: this.userForm.controls['username'].value,
+      email: this.userForm.controls['email'].value
+    };
+    if (this.currentUserId) {
+      user.id = this.currentUserId;
+    }
+    this.saveOrEditUserSubscription = this.userService.saveOrEditUser(user).subscribe({
+      next: (user) => {
+        this.toastr.success('User saved successfully');
+        this.getAllUsers();
+      },
+      error: (error) => {
+        this.toastr.error(`Error trying to save user ${error}`);
+      },
+      complete: () => {
+
+      }
+    });
+  }
+
+  public cancelInput(): void {
+    this.currentUserId = null;
+    this.userForm.reset();
+    this.userForm.controls['name'].setValue('');
+    this.userForm.controls['username'].setValue('');
+    this.userForm.controls['email'].setValue('')
+   
+  }
+
+  public editUser(user: User): void {
+    this.currentUserId = user.id;
+    this.userForm.controls['name'].setValue(user.name);
+    this.userForm.controls['username'].setValue(user.username);
+    this.userForm.controls['email'].setValue(user.email);
+  }
+
+  public deleteUser(): void {
 
   }
 
+
   ngOnDestroy(): void {
-      if (this.getUsersSubscription) {
-        this.getUsersSubscription.unsubscribe();
-      }
+    if (this.getUsersSubscription) {
+      this.getUsersSubscription.unsubscribe();
+    }
+    if (this.saveOrEditUserSubscription) {
+      this.saveOrEditUserSubscription.unsubscribe();
+    }
   }
 }

@@ -1,5 +1,5 @@
 <section class="users">
-  <form [formGroup]="userForm">
+  <form [formGroup]="userForm" (ngSubmit)="saveOrEditUser()">
     <div class="row">
       <div class="col-12 col-lg-6">
         <div class="form-group mb-3">
@@ -50,7 +50,7 @@
         </div>
       </div>
       <div class="col-12">
-        <button type="button" class="btn btn-danger me-2">
+        <button type="button" class="btn btn-danger me-2" (click)="cancelInput()">
           <fa-icon [icon]="cancelDeleteIcon"></fa-icon> Cancelar
         </button>
         <button type="submit" class="btn btn-success" [disabled]="userForm.invalid">
@@ -80,10 +80,10 @@
             <td>{{user.email}}</td>
             <td>
               <div class="btn-group">
-                <button class="btn btn-primary">
+                <button class="btn btn-primary" (click)="editUser(user)">
                   <fa-icon [icon]="editIcon"></fa-icon>
                 </button>
-                <button class="btn btn-danger">
+                <button class="btn btn-danger" (click)="deleteUser()">
                   <fa-icon [icon]="cancelDeleteIcon"></fa-icon>
                 </button>
               </div>
