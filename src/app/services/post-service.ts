@@ -17,4 +17,8 @@ export class PostService {
   public saveOrEditPost(post: Post): Observable<Post> {
     return this.http.post<Post>('/post', post);
   }
+
+  public deletePost(id: number): Observable<Object> {
+    return this.http.delete(`/post/${id}`);
+  }
 }

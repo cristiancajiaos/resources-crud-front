@@ -32,6 +32,7 @@ export class Posts implements OnInit, OnDestroy {
 
   private saveOrEditPostSubscription: Subscription = new Subscription(); 
   private getPostsSubscription: Subscription = new Subscription();
+  private deletePostSubscription: Subscription = new Subscription();
 
   ngOnInit(): void {
     this.postForm = this.fb.group({
@@ -93,8 +94,17 @@ export class Posts implements OnInit, OnDestroy {
     this.postForm.controls['body'].setValue(post.body);
   }
 
-  public deletePost() {
-
+  public deletePost(id: number) {
+    this.deletePostSubscription = this.postService.deletePost(id).subscribe({
+      next: () => {
+        this.toastr.success("Post deleted successfully");
+        this.getAllPosts(); 
+      },
+      error: (error) => {
+        this.toastr.error(`Error trying to save post: ${error}`);
+      },
+      complete: () => {}
+    });
   }
 
   ngOnDestroy(): void {
