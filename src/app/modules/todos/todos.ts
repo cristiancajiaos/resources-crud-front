@@ -37,6 +37,7 @@ export class Todos implements OnInit, OnDestroy {
   public editIcon: IconDefinition = faPencil;
 
   private getTodosSubscription: Subscription = new Subscription();
+  private saveEditTodoSubcription: Subscription = new Subscription();
 
   ngOnInit(): void {
     this.todoForm = this.fb.group({
@@ -59,10 +60,31 @@ export class Todos implements OnInit, OnDestroy {
   }
 
   public saveOrEditTodo() {
+    let todo: Todo = {
+      title: this.todoForm.controls['todoTitle'].value,
+      completed: this.todoForm.controls['todoCompleted'].value
+    };
 
+    if (this.currentTodoId) {
+      todo.id = this.currentTodoId;
+    }
+
+    this.saveEditTodoSubcription = this.todoService.saveOrUpdateTodo(todo).subscribe({
+      next: (todo) => {
+        this.toastr.success(`Todo ${this.currentTodoId ? 'edited' : 'created'} successfully`);
+        this.resetTodoForm();
+        this.getAllTodos();
+      },
+      error: (error) => {
+        this.toastr.error(`Error while trying to save todo: ${error}`);
+      },
+      complete: () => {
+
+      }
+    });
   }
 
-  public cancelTodo() {
+  public resetTodoForm() {
     this.currentTodoId = null;
     this.todoForm.reset();
     this.todoForm.controls['todoTitle'].setValue('');
@@ -78,6 +100,9 @@ export class Todos implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     if (this.getTodosSubscription) {
       this.getTodosSubscription.unsubscribe();
+    }
+    if (this.saveEditTodoSubcription) {
+      this.saveEditTodoSubcription.unsubscribe();
     }
   }
 }
