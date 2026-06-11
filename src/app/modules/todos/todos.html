@@ -15,13 +15,18 @@
         </div>
       </div>
       <div class="col-12">
-        <button type="button" class="btn btn-danger me-2">
+        <button type="button" class="btn btn-danger me-2" (click)="cancelTodo()">
           <fa-icon [icon]="cancelDeleteIcon"></fa-icon>
           Cancel
         </button>
         <button type="submit" class="btn btn-success">
-          <fa-icon [icon]="saveIcon"></fa-icon>
-          Save Todo
+          @if (currentTodoId) {
+            <fa-icon [icon]="editIcon"></fa-icon>
+            Edit Todo
+          } @else {
+            <fa-icon [icon]="saveIcon"></fa-icon>
+            Save Todo
+          }
         </button>
       </div>
     </div>
@@ -47,7 +52,7 @@
             </td>
             <td>
               <div class="btn-group">
-                <button type="submit" class="btn btn-primary">
+                <button type="submit" class="btn btn-primary" (click)="editTodo(todo)">
                   <fa-icon [icon]="editIcon"></fa-icon>
                 </button>
                 <button type="submit" class="btn btn-danger">

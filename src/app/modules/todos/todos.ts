@@ -21,6 +21,8 @@ export class Todos implements OnInit, OnDestroy {
   public fb = inject(FormBuilder);
   public toastr = inject(ToastrService);
 
+  public currentTodoId: number;
+
   public todos: Todo[] = [];
 
   public todoForm: FormGroup = new FormGroup({});
@@ -58,6 +60,19 @@ export class Todos implements OnInit, OnDestroy {
 
   public saveOrEditTodo() {
 
+  }
+
+  public cancelTodo() {
+    this.currentTodoId = null;
+    this.todoForm.reset();
+    this.todoForm.controls['todoTitle'].setValue('');
+    this.todoForm.controls['todoCompleted'].setValue(false);
+  }
+
+  public editTodo(todo: Todo) {
+    this.currentTodoId = todo.id;
+    this.todoForm.controls['todoTitle'].setValue(todo.title);
+    this.todoForm.controls['todoCompleted'].setValue(todo.completed);
   }
 
   ngOnDestroy(): void {
