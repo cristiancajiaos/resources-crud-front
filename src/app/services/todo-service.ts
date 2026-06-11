@@ -17,4 +17,8 @@ export class TodoService {
   public saveOrUpdateTodo(todo: Todo): Observable<Todo> {
     return this.http.post<Todo>('/todo', todo);
   }
+
+  public deleteTodoById(id: number): Observable<Object> {
+    return this.http.delete(`/todo/${id}`);
+  }
 }

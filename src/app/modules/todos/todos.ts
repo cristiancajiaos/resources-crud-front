@@ -38,6 +38,7 @@ export class Todos implements OnInit, OnDestroy {
 
   private getTodosSubscription: Subscription = new Subscription();
   private saveEditTodoSubcription: Subscription = new Subscription();
+  private deleteTodoSubscription: Subscription = new Subscription();
 
   ngOnInit(): void {
     this.todoForm = this.fb.group({
@@ -84,6 +85,21 @@ export class Todos implements OnInit, OnDestroy {
     });
   }
 
+  public deleteTodo(id: number): void {
+    this.deleteTodoSubscription = this.todoService.deleteTodoById(id).subscribe({
+      next: () => {
+        this.toastr.success('Todo created successfully');
+        this.getAllTodos();
+      },
+      error: (error) => {
+        this.toastr.error(`Error while trying to delete todo: ${error}`);
+      },
+      complete: () => {
+
+      }
+    });
+  }
+
   public resetTodoForm() {
     this.currentTodoId = null;
     this.todoForm.reset();
@@ -103,6 +119,9 @@ export class Todos implements OnInit, OnDestroy {
     }
     if (this.saveEditTodoSubcription) {
       this.saveEditTodoSubcription.unsubscribe();
+    }
+    if (this.deleteTodoSubscription) {
+      this.deleteTodoSubscription.unsubscribe();
     }
   }
 }
