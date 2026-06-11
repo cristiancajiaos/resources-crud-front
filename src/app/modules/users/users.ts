@@ -1,12 +1,5 @@
-import { Component, inject, OnDestroy, OnInit, ChangeDetectionStrategy } from '@angular/core';
-import {
-  FormBuilder,
-  FormControl,
-  FormGroup,
-  FormsModule,
-  ReactiveFormsModule,
-  Validators,
-} from '@angular/forms';
+import { Component, inject, OnDestroy, OnInit } from '@angular/core';
+import { FormBuilder, FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { faEdit, faFloppyDisk, faTimes, IconDefinition } from '@fortawesome/free-solid-svg-icons';
 import { Subscription } from 'rxjs';
@@ -18,17 +11,17 @@ import { User } from '../../interfaces/user';
   selector: 'app-users',
   imports: [FontAwesomeModule, FormsModule, ReactiveFormsModule],
   templateUrl: './users.html',
-  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './users.scss',
 })
 export class Users implements OnInit, OnDestroy {
-  private userService = inject(UserService);
+
+  private userService = inject(UserService); 
   private fb = inject(FormBuilder);
   private toastr = inject(ToastrService);
 
   public currentUserId: number;
 
-  public users: User[] = [];
+  public users: User[] = []; 
 
   public userForm: FormGroup = new FormGroup({});
 
@@ -43,12 +36,13 @@ export class Users implements OnInit, OnDestroy {
   private saveOrEditUserSubscription: Subscription = new Subscription();
   private getUsersSubscription: Subscription = new Subscription();
   private deleteUserSubscription: Subscription = new Subscription();
+  
 
   ngOnInit(): void {
     this.userForm = this.fb.group({
       name: this.userName,
       username: this.userUsername,
-      email: this.userEmail,
+      email: this.userEmail
     });
     this.getAllUsers();
   }
@@ -56,12 +50,15 @@ export class Users implements OnInit, OnDestroy {
   private getAllUsers(): void {
     this.getUsersSubscription = this.userService.getUsers().subscribe({
       next: (users) => {
-        this.users = users;
+        this.users = users; 
       },
       error: (error) => {
         this.toastr.error(`Error while trying to get users ${error}`);
+
       },
-      complete: () => {},
+      complete: () => {
+
+      }
     });
   }
 
@@ -69,7 +66,7 @@ export class Users implements OnInit, OnDestroy {
     let user: User = {
       name: this.userForm.controls['name'].value,
       username: this.userForm.controls['username'].value,
-      email: this.userForm.controls['email'].value,
+      email: this.userForm.controls['email'].value
     };
     if (this.currentUserId) {
       user.id = this.currentUserId;
@@ -82,7 +79,9 @@ export class Users implements OnInit, OnDestroy {
       error: (error) => {
         this.toastr.error(`Error trying to save user ${error}`);
       },
-      complete: () => {},
+      complete: () => {
+
+      }
     });
   }
 
@@ -91,7 +90,8 @@ export class Users implements OnInit, OnDestroy {
     this.userForm.reset();
     this.userForm.controls['name'].setValue('');
     this.userForm.controls['username'].setValue('');
-    this.userForm.controls['email'].setValue('');
+    this.userForm.controls['email'].setValue('')
+   
   }
 
   public editUser(user: User): void {
@@ -110,9 +110,10 @@ export class Users implements OnInit, OnDestroy {
       error: (error) => {
         this.toastr.error(`Error trying to save user ${error}`);
       },
-      complete: () => {},
-    });
+      complete: () => {}
+    }); 
   }
+
 
   ngOnDestroy(): void {
     if (this.getUsersSubscription) {
