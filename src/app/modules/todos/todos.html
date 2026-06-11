@@ -1,19 +1,19 @@
 <section class="todos">
-  <form>
+  <form [formGroup]="todoForm" (ngSubmit)="saveOrEditTodo()">
     <div class="row">
       <div class="col-12 col-lg-6">
         <div class="form-group mb-3">
           <label for="todoTitle">Title</label>
-          <input class="form-control" id="todoTitle" name="todoTitle"/>
+          <input class="form-control" id="todoTitle" name="todoTitle" formControlName="todoTitle"/>
         </div>
       </div>
       <div class="col-12 col-lg-6">
         <div class="form-group mb-3">
           <label for="todoCompleted">Completed:</label>
           <br/>
-          <p-toggleswitch 
-            [(ngModel)]="todoCompleted" 
-            id="todoCompleted" 
+          <p-toggleswitch
+            formControlName="todoCompleted"
+            id="todoCompleted"
             name="todoCompleted"/>
         </div>
       </div>
