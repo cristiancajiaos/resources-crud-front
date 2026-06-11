@@ -1,4 +1,61 @@
 <section class="todos">
-  <p>todos works!</p>
+  <form>
+    <div class="row">
+      <div class="col-12 col-lg-6">
+        <div class="form-group mb-3">
+          <label for="todoTitle">Title</label>
+          <input class="form-control" id="todoTitle" name="todoTitle"/>
+        </div>
+      </div>
+      <div class="col-12 col-lg-6">
+        <div class="form-group mb-3">
+          <label for="todoCompleted">Completed:</label>
+          <br/>
+          <p-toggleswitch 
+            [(ngModel)]="todoCompleted" 
+            id="todoCompleted" 
+            name="todoCompleted"/>
+        </div>
+      </div>
+      <div class="col-12">
+        <button type="button" class="btn btn-danger me-2">
+          <fa-icon [icon]="cancelDeleteIcon"></fa-icon>
+          Cancel
+        </button>
+        <button type="submit" class="btn btn-success">
+          <fa-icon [icon]="saveIcon"></fa-icon>
+          Save Todo
+        </button>
+      </div>
+    </div>
+  </form>
+  <hr/>
+  <div class="table-responsive">
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Title</th>
+          <th>Completed</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Here goes the title</td>
+          <td>Here goes the completion status</td>
+          <td>
+            <div class="btn-group">
+              <button type="submit" class="btn btn-primary">
+                <fa-icon [icon]="editIcon"></fa-icon>
+              </button>
+              <button type="submit" class="btn btn-danger">
+                <fa-icon [icon]="cancelDeleteIcon"></fa-icon>
+              </button>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
 </section>
 
