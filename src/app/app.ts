@@ -1,4 +1,4 @@
-import { Component, signal } from '@angular/core';
+import { Component, signal, ChangeDetectionStrategy } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { Layout } from './components/layout/layout';
 
@@ -6,7 +6,8 @@ import { Layout } from './components/layout/layout';
   selector: 'app-root',
   imports: [Layout],
   templateUrl: './app.html',
-  styleUrl: './app.scss'
+  changeDetection: ChangeDetectionStrategy.Eager,
+  styleUrl: './app.scss',
 })
 export class App {
   protected readonly title = signal('resources-crud-front');
