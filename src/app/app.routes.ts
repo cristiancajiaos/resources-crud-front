@@ -2,6 +2,7 @@ import { Routes } from '@angular/router';
 import { Home } from './modules/home/home';
 import { Posts } from './modules/posts/posts';
 import { Users } from './modules/users/users';
+import { Todos } from './modules/todos/todos';
 
 export const routes: Routes = [
   {
@@ -15,6 +16,10 @@ export const routes: Routes = [
   {
     path: 'users',
     component: Users
+  },
+  {
+    path: 'todos',
+    component: Todos
   },
   {
     path: '',
